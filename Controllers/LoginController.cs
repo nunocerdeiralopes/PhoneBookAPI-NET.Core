@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using PhoneBookAPI.Models;
-using PhoneBookAPI.AuthenticationHelpers;
 using PhoneBookAPI.Services;
 using PhoneBookAPI.Entities;
 

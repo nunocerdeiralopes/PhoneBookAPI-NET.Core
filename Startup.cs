@@ -14,6 +14,9 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Swashbuckle.AspNetCore.Swagger;
 using PhoneBookAPI.Infrastructures;
+using Microsoft.EntityFrameworkCore;
+using PhoneBookAPI.Data;
+using System.Configuration;
 
 namespace PhoneBookAPI
 {
@@ -28,6 +31,9 @@ namespace PhoneBookAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
+
             //MongoDB Configs
             services.Configure<MongoConnection>(
         Configuration.GetSection(nameof(MongoConnection)));

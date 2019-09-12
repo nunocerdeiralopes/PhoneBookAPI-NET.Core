@@ -1,6 +1,7 @@
 ﻿# Phonebook API
 
-A simpple Phonebook API made using ASP.NET Core, MongoDB, Swager and role based authorization on top of JWT authentication.
+
+A simpple Phonebook API made using ASP.NET Core, MongoDB, Swager, MySQL, role based authorization on top of JWT authentication.
 
 ## Swagger URL
 
@@ -9,3 +10,9 @@ A simpple Phonebook API made using ASP.NET Core, MongoDB, Swager and role based 
 ### Authentication:
 
 `POST /login`
+```
+{
+	"Username": "admin",
+	"Password": "admin"
+}
+```

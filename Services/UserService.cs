@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PhoneBookAPI.AuthenticationHelpers;
+using PhoneBookAPI.Data;
 using PhoneBookAPI.Entities;
 
 namespace PhoneBookAPI.Services
@@ -18,23 +19,19 @@ namespace PhoneBookAPI.Services
 
     public class UserService : IUserService
     {
-        // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-        private List<User> _users = new List<User>
-        {
-            new User { Id = 1, FirstName = "Admin", LastName = "User", Username = "admin", Password = "admin", Role = Role.Admin },
-            new User { Id = 2, FirstName = "Normal", LastName = "User", Username = "user", Password = "user", Role = Role.User }
-        };
 
         private readonly AppSettings _appSettings;
+        private ApplicationDbContext _applicationDbContext;
 
-        public UserService(IOptions<AppSettings> appSettings)
+        public UserService(IOptions<AppSettings> appSettings, ApplicationDbContext applicationDbContext)
         {
             _appSettings = appSettings.Value;
+            _applicationDbContext = applicationDbContext;
         }
 
         public User Authenticate(string username, string password)
         {
-            var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
+            var user = _applicationDbContext.Users.SingleOrDefault(x => x.Username == username && x.Password == password);
 
             if (user == null)
                 return null;
