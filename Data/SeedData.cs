@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-
 namespace PhoneBookAPI.Data
 {
     public class SeedData
@@ -35,11 +34,11 @@ namespace PhoneBookAPI.Data
             Console.WriteLine();
         }
 
-        // Users hardcoded and passwords not hashed with salt for simplicity's sake
+        // Users hardcoded and not salted for simplicity's sake
         private static List<User> _users = new List<User>
         {
-            new User { Id = 1, FirstName = "Admin", LastName = "User", Username = "admin", Password = "admin", Role = Role.Admin },
-            new User { Id = 2, FirstName = "Normal", LastName = "User", Username = "user", Password = "user", Role = Role.User }
+            new User { Id = 1, FirstName = "Admin", LastName = "User", Username = "admin", Password = BCrypt.Net.BCrypt.HashPassword("admin", workFactor: 13), Role = Role.Admin },
+            new User { Id = 2, FirstName = "Normal", LastName = "User", Username = "user", Password = BCrypt.Net.BCrypt.HashPassword("user", workFactor: 13), Role = Role.User }
         };
 
         private static void EnsureSeedData(ApplicationDbContext context)
